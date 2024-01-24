@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Texturina:ital,opsz,wght@1,12..72,100&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href=" https://boxicons.com/?query=cart">
+    <link rel="stylesheet" href="../Content/Css/home.css">
+    <link rel="stylesheet" href="../Content/Css/sidebarHome.css">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js">
+    <title>Home : ElpiaioStore</title>
+</head>
+
+<body>
+    <!--Barra lateral configuraçoes-->
+
+    <div class="toggle-btn">
+        <!--this is three lines-->
+        <box-icon class="bct" size="40px" name='cart-alt'></box-icon>
+
+    </div>
+
+    <div id="sidebar">
+        <h2 id="h2Carrinho">Carrinho</h2>
+        <div id="carrinho">
+        </div>
+        <br>
+
+    </div>
+    <!--Barra lateral configuraçoes ^ -->
+
+    <h2 id="h2ElpiaioStore">ElpiaioStore</h2>
+    <div id="produtos">
+
+
+    </div><!--produtos-->
+
+    <!--
+    <div id="carrinho">
+      
+    </div> //carinho
+-->
+
+    <script src="../Content/Script/Controller/sidebarHome.js"></script>
+    <script src="../Content/Script/httphandler.js"></script>
+    <script>
+        var containerProdutos = document.getElementById('produtos');
+        var containerCarrinho = document.getElementById('carrinho');
+        const produtos = [];
+
+        function retornaNumeroFormatado(numero) {
+            return numero.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+
+        // Função para criar e exibir os cards dos produtos
+        function montarCards(items) {
+            items.forEach((val, index) => {
+                const cardProduct = document.createElement("div");
+                cardProduct.classList.add("produto-single");
+                cardProduct.innerHTML = `
+            <img src="${val.imagem}"/>
+            <p>${val.nome}</p> 
+            <p>${val.descricao}</p>
+            <p id="preco">${retornaNumeroFormatado(val.preco)}</p>
+            <a data-key="${index}" href="#">Adicionar ao carrinho</a>
+        `;
+                produtos.push({
+                    index: index,
+                    id: val.id,
+                    nome: val.nome,
+                    imagem: val.imagem,
+                    preco: val.preco,
+                    quantidade: 0 // Initialize quantity to 0 for each product
+                });
+                containerProdutos.append(cardProduct);
+            });
+
+            // Adiciona ouvintes de eventos aos links "Adicionar ao carrinho"
+            var links = document.querySelectorAll('.produto-single a[data-key]');
+
+            // Itera sobre cada elemento âncora selecionado usando forEach
+            links.forEach(link => {
+                // Adiciona um ouvinte de evento de clique a cada elemento âncora
+                link.addEventListener("click", function (event) {
+                    // Impede o comportamento padrão do evento de clique (por exemplo, navegar para uma nova página)
+                    event.preventDefault();
+
+                    // Obtém o valor do atributo 'data-key' do elemento âncora clicado
+                    let key = this.getAttribute('data-key');
+
+                    // Aumenta a quantidade do produto correspondente no array 'produtos'
+                    produtos[key].quantidade++;
+
+                    // Chama a função 'atualizarCarrinho' para atualizar o carrinho de compras
+                    atualizarCarrinho();
+                });
+            });
+
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////
+        ////////////////// Função para atualizar o carrinho de compras
+        //////////////////////////////////////////////////////////////////////////////////////        
+
+
+        function atualizarCarrinho() {
+            // Limpa o conteúdo do container do carrinho
+            containerCarrinho.innerHTML = '';
+
+            produtos.forEach(produto => {
+                if (produto.quantidade > 0) {
+                    containerCarrinho.innerHTML += `
+                <div class="info-single-checkout">
+                    <img class="imagemCarrinho" src="${produto.imagem}"/>
+                    <p class="nomeCarrinho">${produto.nome}</p>
+                    <br>
+                    <p class="precoCarrinho">${retornaNumeroFormatado(produto.preco)}</p>
+                    <button type="button" class="btnApagarCarrinho" ></button>
+                    <hr>
+                </div>`;
+                }
+            });
+
+
+
+            var btnsApagar = document.querySelectorAll('.btnApagarCarrinho');
+            btnsApagar.forEach((btn, index) => {
+                btn.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    let indiceProduto = index;
+                    if (produtos[indiceProduto].quantidade > 0) {
+                        produtos[indiceProduto].quantidade--;
+                    }
+                    atualizarCarrinho();
+                });
+            });
+        }
+
+            // Função assíncrona para inicializar a loja, obtendo os produtos da API
+            async function inicializarLoja() {
+                const url = "https://localhost:7141/api/Produto/RetornandoProdutos";
+                const items = await HttpGetHome(url);
+                montarCards(items);
+            }
+
+            // Chama a função de inicialização da loja
+            inicializarLoja();
+    </script>
+</body>
+
+</html>

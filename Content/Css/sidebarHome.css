@@ -1,0 +1,112 @@
+#sidebar{
+    position: fixed;
+    width: 400px;
+    height: 100%;
+    background: #4c3282;
+    left: -400px;
+    transition: all 200ms linear;
+    font-family: 'Lato', sans-serif;
+    align-items: center;
+    overflow-y: auto;
+}
+#carrinho{
+    max-width: 300px;
+    margin:0 auto;
+    padding:0 2%;
+    display: block;
+    color: azure;
+    align-items: center;
+    display: block;
+    
+}
+#sidebar.active{
+    left: 0px;
+}
+#sidebar ul li{
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Lato', sans-serif;
+    list-style: none;
+    padding: 25px 15px;
+    border-bottom: 1px solid rgba(100, 100, 100, .3);
+    text-align: center;
+}
+.logo{
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+}
+.toggle-btn{
+    border: none;
+    position: absolute;
+    left: 400px;
+    top: 25px;
+    cursor: pointer;
+    
+}
+
+.toggle-btn .bct{
+    display: block;
+    text-align: center;
+    font-size: 50px;
+    border: none;
+    size: 2cm;
+}
+
+.imagemCarrinho{
+    border-radius: 15px;
+    max-width: 100%;
+    height: 200px;
+    /*width: ;
+    /*aspect-ratio: 3/4;*/
+    object-fit: cover;
+    display: flex;
+}
+.nomeCarrinho{
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+}
+.precoCarrinho{
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #0f8440;
+    font-size: 20px;
+}
+
+/* sadasdsadsad */
+
+#sidebar .btnComprar,
+#sidebar .btnRemover{
+    display: inline;
+      padding: 5px 10px;
+      font-size: 16px;
+      text-align: center;
+      cursor: pointer;
+      border: none; /* Remove a borda padrão do botão */
+    }
+
+.btnApagarCarrinho{
+    cursor: pointer;
+    border: none;
+    background-color: rgba(255, 0, 0, 0.3);
+    opacity: 0;
+    position: absolute;
+    right: 0px;
+    top:10px;
+    width: 400px;
+    height: 200px;
+    border-radius: 15px;
+    transition: opacity 0.3s ease-out ;
+    object-fit: cover;
+    display: flex;
+    max-width: 100%;
+
+    /*
+    border-radius: 15px;
+    
+    height: 200px;
+    /*width: ;
+    /*aspect-ratio: 3/4;
+    
+    */
+}   

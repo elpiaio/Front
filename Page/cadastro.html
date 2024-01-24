@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Content/Css/cadastro.css">
+    <title>Cadastro : ElpiaioStore</title>
+</head>
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+     background-image: linear-gradient(90deg, rgb(37, 3, 41), #4c3282);
+    }
+</style>
+<body>
+    <form id="InfoCadastro" class="InfoCadastro">
+        <H1>Cadastro</H1>
+        <input type="text" id="NomeCadastro" placeholder="Nome">
+        <br><br>
+        <input type="text" id="EmailCadastro" placeholder="Email">
+        <br><br>
+        <input type="password" id="SenhaCadastro" placeholder="Senha">
+        <br><br>
+        <button type="button" id="buttonCadastro">criar</button>
+        <br><br>
+    </form>
+
+    <script src="../Content/Script/httphandler.js"></script>
+    <script src="../Content/Script/Api/cadastroApi.js"></script>
+    <script src="../Content/Script/Controller/cadastroController.js"></script>
+    <!--////////////////////JEITO PADRONIZADO///////////////////////-->
+    <script>
+        cadastro_controller.start();
+    </script>
+</body>
+</html>

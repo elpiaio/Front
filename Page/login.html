@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Content/Css/login.css">
+    <title>Login : ElpiaioStore</title>
+</head>
+<style>
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: linear-gradient(90deg, rgb(37, 3, 41), #4c3282);
+}
+
+</style>
+<body>
+    <form class="container">
+        <H1>Login</H1>
+        <input type="text" id="LoginEmail" placeholder="Email">
+        <br><br>
+        <input type="password" id="LoginSenha" placeholder="Senha">
+        <br><br>
+        <button type="button" id="buttonSend">Enviar</button>
+        <br><br>
+        <p>não tem uma conta?</p>
+        <p><a href="cadastro.html">criar uma conta</a></p>
+    </form>
+    
+<script src="../Content/Script/httphandler.js"></script>
+<script src="../Content/Script/Api/loginApi.js"></script>
+<script src="../Content/Script/Controller/loginController.js"></script>
+            
+<script>
+    login_controller.start()
+</script>
+</body>
+</html>

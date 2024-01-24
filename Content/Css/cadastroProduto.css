@@ -1,0 +1,148 @@
+.container-cadastro{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.InfoCadastroProdt{
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 80px;
+    border-radius: 30px;
+    max-width: 300px;
+    
+}
+.InfoCadastroProdt h1{
+    color: blueviolet;
+}
+
+input{
+    padding: 15px;
+    outline: none;
+    font-size: 15px;
+}
+
+button{
+    background-color: rgb(0, 0, 0);
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 5px;
+    color: white;
+}
+button:hover{
+    background-color: rgb(31, 30, 30);
+    cursor: pointer;
+}
+
+.venda-single{
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    position: fixed;
+    top: 10%;
+    left: 90%;
+    transform: translate(-50%,-50%);
+    padding: 40px;
+    border-radius: 8px;
+    
+}
+body h1{
+    color: rgb(115, 0, 255);
+    text-align: center;
+}
+
+/*hglllllllllllllllllllllllllllll TABLE*/
+
+table{
+    top: 80%;
+    background: #fff;
+    padding: 40px;
+    text-align: left;
+    border-radius: 20px;
+    width: 30%;
+    right: 30%;
+    background-color: rgba(255, 255, 255, 0.9);
+    top: 50px;
+    height: fit-content;
+  }
+  table td, th{
+    padding: 0.2rem 0.8rem;
+  }
+  table th{
+    font-size: 15px;
+  }
+  table td{
+    font-size: 13px;
+    color: rgb(69, 69, 69);
+  }
+
+
+
+  /*sakdjhsadas d INFO*/
+ .tableInfo{
+    top: 80%;
+    background: #fff;
+    padding: 40px;
+    text-align: left;
+    border-radius: 20px;
+    width: 30%;
+    right: 30%;
+    background-color: rgba(255, 255, 255, 0.9);
+    top: 50px;
+    height: fit-content;
+  }
+  table td, th{
+    padding: 0.2rem 0.8rem;
+  }
+  table th{
+    font-size: 15px;
+  }
+  table td{
+    font-size: 13px;
+    color: rgb(69, 69, 69);
+  }
+
+
+
+
+/*dsfdsafffffffffdsfsdafdswfdsfd*/
+
+
+  .top-bar {
+    background-color: #e6e6e6;
+    color: #ae00ff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-left: 0%;
+    margin-top: 0%;
+    margin-bottom: 8px;
+}
+
+.vendasValorH1{
+    color: rgb(11, 107, 48);
+    text-align: center;
+}
+.logo {
+    font-size: 1.5em;
+}
+
+.menu ul {
+    list-style: none;
+    display: flex;
+}
+
+.menu li {
+    margin: 0 15px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #c300ff;
+}
+
+.content {
+    padding: 20px;
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Content/Css/cadastroProduto.css">
+    <title>CadastroProduto</title>
+</head>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-image: linear-gradient(90deg, rgb(37, 3, 41), #4c3282);
+    }
+</style>
+
+<body>
+
+
+
+    <div class="top-bar">
+        <div class="logo">
+            <h1>Dashboard</h1>
+        </div>
+        <div class="vendasValor">
+            <H1 class="vendasValorH1">Valor das vendas: </H1>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="#">Página Inicial</a></li>
+                <li><a href="#">Sobre Nós</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="container-cadastro">
+        <table class="table" id="table"><!--<table> / <tbody> / <tr> / <td></td>-->
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Email</th>
+                    <th>Produto</th>
+                    <th>valor</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <form id="InfoCadastroProdt" class="InfoCadastroProdt">
+            <H1>Cadastro Produto</H1>
+            <input type="text" id="NomeProduto" placeholder="Nome">
+            <br><br>
+            <input type="text" id="DescricaoProduto" placeholder="Descrição">
+            <br><br>
+            <input type="text" id="ImagemProduto" placeholder="Url">
+            <br><br>
+            <input type="text" id="PrecoProduto" placeholder="Preço">
+            <br><br>
+            <input type="text" id="QuantidadeProduto" placeholder="Quantidade">
+            <br><br>
+            <button type="button" id="buttonCadastroProdt">Cadastrar</button>
+            <br><br>
+        </form>
+        <table class="tableInfo" id="tableInfo"><!--<table> / <tbody> / <tr> / <td></td>-->
+            <thead>
+                <tr>
+                    <th>Valor do Estoque</th>
+                    <th>Quant. de Veiculos</th>
+                    <th>Quant. Vendas</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+
+
+
+<script src="../Content/Script/Controller/CadastroProdtController.js"></script>
+<script src="../Content/Script/Api/CadastroProdtApi.js"></script>
+<script src="../Content/Script/httphandler.js"></script>
+<script>
+    const cardValor = document.querySelector('.vendasValorH1');
+    var containerProdutos = document.querySelector('table');
+    const produtos = [];
+
+    var precoTotal = 0;
+    var precoTotalFormatado;
+
+    var containerProdutosTable = document.querySelector('.tableInfo');
+    const produtosTable = [];
+    var precoEstoque = 0;
+    var quantVeiculos = 0;
+    var quantVendas = 0;
+
+    function retornaNumeroFormatado(numero) {
+        return numero.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+
+    function montarCards(items) {
+        items.forEach((val, index) => {
+            precoTotal = precoTotal + val.valor;
+            quantVendas++;
+            const cardProduct = document.querySelector('#table tbody');
+
+            cardProduct.innerHTML += `
+                <tbody>
+                    <tr>
+                        <td id="preco">${retornaNumeroFormatado(val.valor)}</td>
+                        <td>${val.nomeCliente}</td> 
+                        <td>${val.emailCliente}</td> 
+                        <td>${val.nomeProduto}</td> 
+                    </tr> 
+                </tbody>
+            `;
+
+            produtos.push(val);
+            containerProdutos.append(cardProduct);
+        });
+        precoTotalFormatado = retornaNumeroFormatado(precoTotal);
+        document.getElementsByClassName("vendasValorH1")[0].textContent += precoTotalFormatado;
+    }
+
+    async function inicializarLoja() {
+        const url = "https://localhost:7141/api/Venda/RetornandoVendas";
+        const items = await HttpGetHome(url);
+        montarCards(items);
+    }
+
+    inicializarLoja();  // Chama a função de inicialização da loja
+    cadastroProdt_controller.start();
+</script>
+
+<!--Montando a tabela de informações-->
+<!--
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////    INSERINDO NA TABELA
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-->
+<script>
+    function montarCardsTable(items2) {
+        items2.forEach((val, index) => {
+            precoEstoque = precoEstoque + val.preco;
+            quantVeiculos++; 
+            produtosTable.push(val);
+
+        });
+        const cardProductTable = document.querySelector('#tableInfo tbody');
+        cardProductTable.innerHTML = `
+                <tbody>
+                    <tr>
+                        <td id="preco">${retornaNumeroFormatado(precoEstoque)}</td>
+                        <td>${quantVeiculos}</td> 
+                        <td>${quantVendas}</td> 
+                    </tr> 
+                </tbody>
+            `;
+
+       
+        containerProdutosTable.append(cardProductTable);
+    }
+
+    async function inicializarTable() {
+        const url2 = "https://localhost:7141/api/Produto/RetornandoProdutos";
+        const items2 = await HttpGetHome(url2);
+        montarCardsTable(items2);
+    }
+
+    inicializarTable();
+
+</script>
+
+</body>
+
+</html>
