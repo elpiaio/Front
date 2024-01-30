@@ -4,25 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Texturina:ital,opsz,wght@1,12..72,100&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href=" https://boxicons.com/?query=cart">
     <link rel="stylesheet" href="../Content/Css/home.css">
     <link rel="stylesheet" href="../Content/Css/sidebarHome.css">
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js">
+
     <title>Home : ElpiaioStore</title>
 </head>
 
 <body>
     <!--Barra lateral configuraçoes-->
-
     <div class="toggle-btn">
         <!--this is three lines-->
-        <box-icon class="bct" size="40px" name='cart-alt'></box-icon>
-
+        <i class="ph ph-shopping-cart bct"></i>
     </div>
 
     <div id="sidebar">
@@ -52,11 +49,11 @@
         var containerProdutos = document.getElementById('produtos');
         var containerCarrinho = document.getElementById('carrinho');
         const produtos = [];
+        const carrinho = [];
 
         function retornaNumeroFormatado(numero) {
             return numero.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         }
-
 
         // Função para criar e exibir os cards dos produtos
         function montarCards(items) {
@@ -71,13 +68,15 @@
             <a data-key="${index}" href="#">Adicionar ao carrinho</a>
         `;
                 produtos.push({
+                    exist: false,
                     index: index,
                     id: val.id,
                     nome: val.nome,
                     imagem: val.imagem,
                     preco: val.preco,
-                    quantidade: 0 // Initialize quantity to 0 for each product
+                    quantidade: 0
                 });
+
                 containerProdutos.append(cardProduct);
             });
 
@@ -95,7 +94,8 @@
                     let key = this.getAttribute('data-key');
 
                     // Aumenta a quantidade do produto correspondente no array 'produtos'
-                    produtos[key].quantidade++;
+                    carrinho.push(produtos[key])
+                    carrinho[key].exist=false;
 
                     // Chama a função 'atualizarCarrinho' para atualizar o carrinho de compras
                     atualizarCarrinho();
@@ -113,44 +113,34 @@
             // Limpa o conteúdo do container do carrinho
             containerCarrinho.innerHTML = '';
 
-            produtos.forEach(produto => {
-                if (produto.quantidade > 0) {
-                    containerCarrinho.innerHTML += `
+            carrinho.forEach(produto => {
+                containerCarrinho.innerHTML += `
                 <div class="info-single-checkout">
                     <img class="imagemCarrinho" src="${produto.imagem}"/>
                     <p class="nomeCarrinho">${produto.nome}</p>
                     <br>
                     <p class="precoCarrinho">${retornaNumeroFormatado(produto.preco)}</p>
-                    <button type="button" class="btnApagarCarrinho" ></button>
+                    <button type="button" onclick="putaria(${produto.index})" class="btnApagarCarrinho" ></button>
                     <hr>
                 </div>`;
-                }
-            });
-
-
-
-            var btnsApagar = document.querySelectorAll('.btnApagarCarrinho');
-            btnsApagar.forEach((btn, index) => {
-                btn.addEventListener("click", function (event) {
-                    event.preventDefault();
-                    let indiceProduto = index;
-                    if (produtos[indiceProduto].quantidade > 0) {
-                        produtos[indiceProduto].quantidade--;
-                    }
-                    atualizarCarrinho();
-                });
+                produto.exist = true;
             });
         }
 
-            // Função assíncrona para inicializar a loja, obtendo os produtos da API
-            async function inicializarLoja() {
-                const url = "https://localhost:7141/api/Produto/RetornandoProdutos";
-                const items = await HttpGetHome(url);
-                montarCards(items);
-            }
+        function putaria(indexador) {
+            carrinho = [];
+            atualizarCarrinho();
+        }
 
-            // Chama a função de inicialização da loja
-            inicializarLoja();
+        // Função assíncrona para inicializar a loja, obtendo os produtos da API
+        async function inicializarLoja() {
+            const url = "https://localhost:7141/api/Produto/RetornandoProdutos";
+            const items = await HttpGetHome(url);
+            montarCards(items);
+        }
+
+        // Chama a função de inicialização da loja
+        inicializarLoja();
     </script>
 </body>
 
